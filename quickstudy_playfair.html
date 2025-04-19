@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qu!ckstudy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8e1e7;
+      --accent: #ffd1dc;
+      --text: #333;
+      --title-gradient-start: #b46060;
+      --title-gradient-end: #ffd1dc;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-style: italic;
+      background-color: var(--bg);
+      color: var(--text);
+      font-size: 22px;
+    }
+    .intro-page, .notes-page, .note-type-page, .note-content-page {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      text-align: center;
+      position: relative;
+      padding: 20px;
+    }
+    .intro-page {
+      display: flex;
+    }
+    .intro-page h1 {
+      font-size: 5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(to right, var(--title-gradient-start), var(--title-gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: background 0.3s;
+    }
+    .intro-page p {
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+    .color-picker {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .notes-button {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      background-color: var(--accent);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.8rem;
+    }
+    .color-picker .dot {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 1px solid #aaa;
+    }
+    .dot.pink { background: #ffd1dc; }
+    .dot.blue { background: #c0e0ff; }
+    .dot.green { background: #b7e4c7; }
+    .dot.grey { background: #d1d1d1; }
+    .dot.purple { background: #d4b5e4; }
+    .dot.yellow { background: #fff1a6; }
+
+    .notes-page h2 {
+      margin-bottom: 30px;
+      font-size: 3rem;
+    }
+    .class-section {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .class-box {
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 30px;
+      width: 260px;
+      text-align: center;
+    }
+    .class-box strong {
+      font-size: 2rem;
+    }
+    .class-box button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: var(--accent);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.4rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 16px;
+      background-color: var(--accent);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.4rem;
+    }
+    .note-options {
+      margin-top: 30px;
+    }
+    .note-options button {
+      margin: 10px;
+      padding: 10px 16px;
+      background-color: var(--accent);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.4rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="intro-page" id="introPage">
+    <h1 id="siteTitle">qu!ckstudy</h1>
+    <p>Easy and aesthetic notes for you!</p>
+    <button class="notes-button" onclick="showNotesPage()">NOTES</button>
+    <div class="color-picker">
+      <div class="dot pink" onclick="setTheme('pink')"></div>
+      <div class="dot blue" onclick="setTheme('blue')"></div>
+      <div class="dot green" onclick="setTheme('green')"></div>
+      <div class="dot grey" onclick="setTheme('grey')"></div>
+      <div class="dot purple" onclick="setTheme('purple')"></div>
+      <div class="dot yellow" onclick="setTheme('yellow')"></div>
+    </div>
+  </div>
+
+  <div class="notes-page" id="notesPage">
+    <button class="back-button" onclick="showIntroPage()">← Back</button>
+    <h2>Select Your Class</h2>
+    <div class="class-section">
+      <div class="class-box">
+        <strong>Notes for Class 9</strong>
+        <button onclick="showNoteTypePage('9', 'handwritten')">Handwritten Notes</button>
+        <button onclick="showNoteTypePage('9', 'typed')">Typed Out Notes</button>
+      </div>
+      <div class="class-box">
+        <strong>Notes for Class 10</strong>
+        <button onclick="showNoteTypePage('10', 'handwritten')">Handwritten Notes</button>
+        <button onclick="showNoteTypePage('10', 'typed')">Typed Out Notes</button>
+      </div>
+      <div class="class-box">
+        <strong>Notes for Class 11</strong>
+        <button onclick="showNoteTypePage('11', 'handwritten')">Handwritten Notes</button>
+        <button onclick="showNoteTypePage('11', 'typed')">Typed Out Notes</button>
+      </div>
+      <div class="class-box">
+        <strong>Notes for Class 12</strong>
+        <button onclick="showNoteTypePage('12', 'handwritten')">Handwritten Notes</button>
+        <button onclick="showNoteTypePage('12', 'typed')">Typed Out Notes</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-type-page" id="noteTypePage">
+    <button class="back-button" onclick="showNotesPage()">← Back</button>
+    <h2 id="noteTypeTitle">Notes</h2>
+    <div class="note-options">
+      <button onclick="alert('Flowcharts will be here')">Flowcharts</button>
+      <button onclick="alert('Descriptive notes will be here')">Descriptive Notes</button>
+    </div>
+  </div>
+
+  <script>
+    const themes = {
+      pink: ['#f8e1e7', '#ffd1dc', '#b46060', '#ffd1dc'],
+      blue: ['#dceeff', '#c0e0ff', '#4a90e2', '#c0e0ff'],
+      green: ['#d8f3dc', '#b7e4c7', '#4caf50', '#b7e4c7'],
+      grey: ['#e4e4e4', '#d1d1d1', '#888', '#d1d1d1'],
+      purple: ['#e9d6f2', '#d4b5e4', '#9b59b6', '#d4b5e4'],
+      yellow: ['#fff9db', '#fff1a6', '#f1c40f', '#fff1a6']
+    };
+
+    function setTheme(theme) {
+      if (themes[theme]) {
+        document.documentElement.style.setProperty('--bg', themes[theme][0]);
+        document.documentElement.style.setProperty('--accent', themes[theme][1]);
+        document.documentElement.style.setProperty('--title-gradient-start', themes[theme][2]);
+        document.documentElement.style.setProperty('--title-gradient-end', themes[theme][3]);
+      }
+    }
+
+    function showIntroPage() {
+      document.getElementById('introPage').style.display = 'flex';
+      document.getElementById('notesPage').style.display = 'none';
+      document.getElementById('noteTypePage').style.display = 'none';
+    }
+
+    function showNotesPage() {
+      document.getElementById('introPage').style.display = 'none';
+      document.getElementById('notesPage').style.display = 'flex';
+      document.getElementById('noteTypePage').style.display = 'none';
+    }
+
+    function showNoteTypePage(classNum, type) {
+      document.getElementById('introPage').style.display = 'none';
+      document.getElementById('notesPage').style.display = 'none';
+      document.getElementById('noteTypePage').style.display = 'flex';
+      document.getElementById('noteTypeTitle').textContent = `Class ${classNum} - ${type === 'handwritten' ? 'Handwritten Notes' : 'Typed Out Notes'}`;
+    }
+  </script>
+</body>
+</html>
